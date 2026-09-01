@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cross-State Road Trip — Oct 1-6, 2026</title>
+<style>
+  :root{
+    --clay: #b5502e;
+    --clay-dark: #8a3a20;
+    --sand: #f6ede1;
+    --sand-2: #efe0cb;
+    --ink: #2c2420;
+    --ink-soft: #6b5f54;
+    --sage: #5c7a5e;
+    --card: #fffaf3;
+    --line: #e2d2ba;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: 'Georgia', 'Iowan Old Style', serif;
+    background: var(--sand);
+    color: var(--ink);
+    line-height:1.7;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px 80px;}
+  header.hero{
+    background:
+      linear-gradient(180deg, rgba(181,80,46,0.75) 0%, rgba(138,58,32,0.88) 100%),
+      url('https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canyon_Amphitheater_Hoodoos_Panorama.jpg?width=1200') center/cover no-repeat;
+    color: #fdf3e9;
+    padding:64px 24px 56px;
+    text-align:center;
+  }
+  header.hero .eyebrow{
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    font-family: Helvetica, Arial, sans-serif;
+    opacity:0.85;
+    margin-bottom:14px;
+  }
+  header.hero h1{
+    font-size:34px;
+    margin:0 0 10px;
+    font-weight:400;
+  }
+  header.hero p.sub{
+    font-size:17px;
+    opacity:0.92;
+    margin:0;
+    font-style:italic;
+  }
+  .badges{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:24px;
+  }
+  .badge{
+    background: rgba(255,255,255,0.15);
+    border:1px solid rgba(255,255,255,0.3);
+    border-radius:20px;
+    padding:6px 16px;
+    font-size:13px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  section{margin-top:56px;}
+  h2.section-title{
+    font-size:24px;
+    font-weight:400;
+    color:var(--clay-dark);
+    border-bottom:2px solid var(--line);
+    padding-bottom:10px;
+    margin-bottom:24px;
+  }
+  .note{
+    background: var(--sand-2);
+    border-left:3px solid var(--clay);
+    padding:14px 18px;
+    font-size:14px;
+    color:var(--ink-soft);
+    font-family: Helvetica, Arial, sans-serif;
+    border-radius:0 8px 8px 0;
+    margin-bottom:8px;
+  }
+  .route{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:10px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+  .route .stop{text-align:center;flex:1;min-width:90px;}
+  .route .stop .name{font-weight:600;font-size:12.5px;color:var(--ink);}
+  .route .stop .meta{font-size:11px;color:var(--ink-soft);margin-top:2px;}
+  .route .arrow{color:var(--clay);font-size:16px;flex:0;}
+  .dayimg{
+    width:100%;
+    height:190px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:16px;
+    display:block;
+  }
+  .daycard{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 28px;
+    margin-bottom:20px;
+  }
+  .daycard .daylabel{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:12px;
+    letter-spacing:1px;
+    color:var(--clay);
+    font-weight:700;
+    margin-bottom:4px;
+  }
+  .daycard h3{
+    margin:0 0 6px;
+    font-size:20px;
+    font-weight:400;
+    color:var(--ink);
+  }
+  .daycard .highlight{
+    font-size:14px;
+    color:var(--ink-soft);
+    font-family: Helvetica, Arial, sans-serif;
+    margin-bottom:16px;
+  }
+  .daycard ul{
+    margin:0;
+    padding-left:20px;
+  }
+  .daycard li{
+    margin-bottom:10px;
+    font-size:15px;
+  }
+  .daycard .time{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:12px;
+    color:var(--clay-dark);
+    font-weight:700;
+    margin-right:4px;
+  }
+  .loc{color:var(--clay-dark);font-weight:bold;text-decoration:none;border-bottom:1px dotted var(--clay-dark);}
+  .loc:hover{border-bottom-style:solid;}
+  .refcard .loc{font-weight:normal;color:var(--clay-dark);border-bottom:1px dotted var(--clay-dark);text-decoration:none;}
+  .stayline{
+    margin-top:16px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+    font-size:14px;
+  }
+  .grid2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  @media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+  .refcard{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px 24px;
+  }
+  .refcard h4{
+    margin:0 0 12px;
+    font-size:14px;
+    font-family: Helvetica, Arial, sans-serif;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--sage);
+  }
+  .refcard ul{margin:0;padding-left:18px;font-size:14px;}
+  .refcard li{margin-bottom:6px;}
+  .pricepill{
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:11px;
+    color:var(--clay-dark);
+    background:#f1d9c4;
+    padding:1px 7px;
+    border-radius:8px;
+    margin-left:4px;
+  }
+  .todocard{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px 24px;
+  }
+  .todocard ul{list-style:none;margin:0;padding:0;}
+  .todocard li{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    padding:10px 0;
+    border-bottom:1px solid var(--line);
+    font-size:15px;
+  }
+  .todocard li:last-child{border-bottom:none;}
+  .todocard .box{
+    width:16px;height:16px;
+    border:1.5px solid var(--clay);
+    border-radius:4px;
+    flex:0 0 16px;
+    margin-top:3px;
+  }
+  footer{
+    margin-top:64px;
+    text-align:center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:12px;
+    color:var(--ink-soft);
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="eyebrow">Cross-state road trip</div>
+  <h1>Bryce Canyon · Page · Phoenix · Grand Canyon</h1>
+  <p class="sub">Oct 1 (Wed) — Oct 6 (Mon), 2026 · 5 days / 4 nights on the road + 1 day home</p>
+  <div class="badges">
+    <span class="badge">6-day trip</span>
+    <span class="badge">Tiff + Max</span>
+    <span class="badge">Hilton family hotels</span>
+  </div>
+</header>
+<div class="wrap">
+  <section>
+    <h2 class="section-title">Route overview</h2>
+    <div class="note">On 10/4 night, drive ahead to a Grand Canyon gateway town (Williams/Flagstaff) so 10/5 morning is a short hop straight into the South Rim. 10/6 is a rest day back home.</div>
+    <div class="route" style="margin-top:16px;">
+      <div class="stop"><div class="name">Airport pickup</div><div class="meta">10/1</div></div>
+      <div class="arrow">→</div>
+      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Bryce+Canyon+National+Park+UT" target="_blank">Bryce Canyon</a></div><div class="meta">10/2-10/3</div></div>
+      <div class="arrow">→</div>
+      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Page+AZ" target="_blank">Page</a></div><div class="meta">10/3 en route</div></div>
+      <div class="arrow">→</div>
+      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Phoenix+AZ" target="_blank">Phoenix</a></div><div class="meta">10/3-10/4</div></div>
+      <div class="arrow">→</div>
+      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Williams+AZ" target="_blank">Williams/Flagstaff</a></div><div class="meta">10/4 night</div></div>
+      <div class="arrow">→</div>
+      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim+AZ" target="_blank">Grand Canyon</a></div><div class="meta">10/5</div></div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Day by day</h2>
+    <div class="daycard">
+      <div class="daylabel">10/1 (Wed)</div>
+      <h3>Tiff arrives, get settled</h3>
+      <div class="highlight">Highlights: airport pickup, grocery run</div>
+      <ul>
+        <li><span class="time">18:30–20:30</span>Airport pickup for Tiff, grocery run for road-trip supplies.</li>
+        <li>Dinner: arrival dinner (American food).</li>
+      </ul>
+      <div class="stayline">Stay: at home.</div>
+    </div>
+    <div class="daycard">
+      <img class="dayimg" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bryce_Canyon_Hoodoos.jpg?width=800" alt="Bryce Canyon hoodoo rock formations">
+      <div class="daylabel">10/2 (Thu)</div>
+      <h3>Head to Bryce Canyon National Park</h3>
+      <div class="highlight">Highlights: unique red-rock hoodoo formations, trail hiking</div>
+      <ul>
+        <li><span class="time">08:00–12:00</span>Drive to <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Bryce+Canyon+National+Park+UT" target="_blank">Bryce Canyon National Park</a>.</li>
+        <li><span class="time">13:30–17:30</span><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Sunrise+Point+Bryce+Canyon+National+Park" target="_blank">Sunrise Point</a> & <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Navajo+Loop+Trailhead+Bryce+Canyon" target="_blank">Navajo Loop Trail</a>.</li>
+        <li>Lunch: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Canyon+Diner+Rubys+Inn+Bryce+Canyon+UT" target="_blank">Canyon Diner at Ruby's Inn</a> (fresh pizza/quick bites, budget-friendly) or <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Sevier+Coffee+Co+Cafe+Bryce+Canyon+UT" target="_blank">Sevier Coffee Co. & Cafe</a> (burritos, sandwiches).</li>
+        <li>Dinner: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Showdowns+Bryce+Canyon+UT" target="_blank">Showdowns</a>.</li>
+      </ul>
+      <div class="stayline">Stay: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hampton+Inn+Suites+Springdale+Zion+National+Park" target="_blank">Hampton Inn & Suites Springdale/Zion National Park</a> or <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Cedar+City+UT" target="_blank">Cedar City</a>.<br>
+      Camping-vibe alternatives: <a class="loc" href="https://airbnb.com/rooms/19641019" target="_blank">Bryce Canyon Deluxe Private Yurt</a> <span class="pricepill">~$135/night</span> (Panguitch, hilltop yurt with red-rock views) · <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Bryce+View+Lodge+Bryce+Canyon+UT" target="_blank">Bryce View Lodge</a> <span class="pricepill">~$75–120/night</span> · <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Best+Western+Plus+Bryce+Canyon+Grand+Hotel" target="_blank">Best Western Plus Bryce Canyon Grand Hotel</a> <span class="pricepill">~$100–180/night</span></div>
+    </div>
+    <div class="daycard">
+      <img class="dayimg" src="https://commons.wikimedia.org/wiki/Special:FilePath/Horseshoe_Bend_-_Arizona.jpg?width=800" alt="Horseshoe Bend near Page">
+      <div class="daylabel">10/3 (Fri)</div>
+      <h3>Bryce sunrise ➔ on to Page ➔ south to Phoenix</h3>
+      <div class="highlight">Highlights: Bryce morning views, Horseshoe Bend, cross-state scenic drive</div>
+      <ul>
+        <li><span class="time">08:00–10:00</span>Morning views at Bryce.</li>
+        <li><span class="time">10:00–15:30</span>Drive to <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Page+AZ" target="_blank">Page, AZ</a>, visit <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Horseshoe+Bend+Page+AZ" target="_blank">Horseshoe Bend</a>, then continue south to <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Phoenix+AZ" target="_blank">Phoenix</a>.</li>
+        <li><span class="time">15:30–19:30</span>Continue south, arrive in Phoenix.</li>
+        <li>Lunch: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Big+Johns+Texas+BBQ+Page+AZ" target="_blank">Big John's Texas BBQ</a>.</li>
+        <li>Dinner: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Steak+44+Phoenix+AZ" target="_blank">Steak 44</a>.</li>
+      </ul>
+      <div class="stayline">Stay: <a class="loc" href="https://maps.app.goo.gl/CpAHDEC3i7XYQzLQ9?g_st=il" target="_blank">Arizona Biltmore, LXR Hotels & Resorts</a>.</div>
+    </div>
+    <div class="daycard">
+      <div class="daylabel">10/4 (Sat)</div>
+      <h3>Class day ➔ drive to Grand Canyon gateway</h3>
+      <div class="highlight">Highlights: class / free time in the city, then drive ahead to the Grand Canyon area that night</div>
+      <ul>
+        <li>Daytime: Max's class / Tiff free to explore — play tennis at <a class="loc" href="https://www.arizonabiltmore.com/wellness/tennis-pickleball/" target="_blank">Arizona Biltmore courts</a>, hike <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hole+in+the+Rock+Papago+Park+Phoenix+AZ" target="_blank">Hole in the Rock</a> (Papago Park, easy hike, great sunset views), or browse <a class="loc" href="https://www.google.com/maps/search/?api=1&query=POP+MART+Scottsdale+Fashion+Square" target="_blank">POP MART at Scottsdale Fashion Square</a> for Molly figures.</li>
+        <li>Lunch: Tiff picks up something small to bring to school and eat with Max.</li>
+        <li><span class="time">17:30–19:00</span>Dinner in Phoenix.</li>
+        <li><span class="time">19:00–22:30</span>Evening drive to the Grand Canyon gateway (~3–3.5 hrs). Optional detour: the <a class="loc" href="https://www.google.com/maps/search/?api=1&query=McDonalds+Sedona+AZ+Route+89A" target="_blank">Blue Arches McDonald's</a> in Sedona (the only turquoise McDonald's in the world) — routing through Sedona on 89A instead of the direct I-17 adds roughly 30–45+ min, so only worth it if you're not rushing.</li>
+        <li>Dinner: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Maple+%26+Ash+Phoenix+AZ" target="_blank">Maple & Ash</a>, <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Blanco+Cocina+Cantina+Phoenix+AZ" target="_blank">Blanco Cocina + Cantina</a>, or <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Pizzeria+Bianco+Phoenix+AZ" target="_blank">Pizzeria Bianco</a> (James Beard Award-winning wood-fired pizza, ~$20–30pp, no reservations — expect a wait).</li>
+      </ul>
+      <div class="stayline">Stay: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hampton+Inn+Williams+AZ" target="_blank">Hampton Inn Williams</a> or <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hilton+Garden+Inn+Flagstaff+AZ" target="_blank">Hilton Garden Inn Flagstaff</a>.</div>
+    </div>
+    <div class="daycard">
+      <img class="dayimg" src="https://commons.wikimedia.org/wiki/Special:FilePath/Grand_Canyon_Mather_Point02.jpg?width=800" alt="Grand Canyon South Rim panorama">
+      <div class="daylabel">10/5 (Sun)</div>
+      <h3>Grand Canyon South Rim ➔ drive home</h3>
+      <div class="highlight">Highlights: classic Grand Canyon views, straight home that evening</div>
+      <ul>
+        <li><span class="time">09:00–10:00</span>Drive into <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim+AZ" target="_blank">Grand Canyon South Rim</a>.</li>
+        <li><span class="time">10:00–15:30</span><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Mather+Point+Grand+Canyon" target="_blank">Mather Point</a>, <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Rim+Trail+Grand+Canyon+South+Rim" target="_blank">Rim Trail</a>, <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Desert+View+Watchtower+Grand+Canyon" target="_blank">Desert View</a>, then set off for home.</li>
+        <li><span class="time">15:30–22:30</span>Drive home.</li>
+        <li>Lunch: <a class="loc" href="https://www.google.com/maps/search/?api=1&query=El+Tovar+Hotel+Grand+Canyon" target="_blank">El Tovar Dining Room</a>.</li>
+        <li>Dinner: quick bite along the way home.</li>
+      </ul>
+      <div class="stayline">Back home.</div>
+    </div>
+    <div class="daycard">
+      <div class="daylabel">10/6 (Mon)</div>
+      <h3>Home, chill and recover</h3>
+      <div class="highlight">Highlights: a full day at home to recharge before back to normal life</div>
+      <ul>
+        <li>All day: rest and relax.</li>
+        <li>Errands: Walmart and Trader Joe's.</li>
+        <li>Cook at home.</li>
+      </ul>
+      <div class="stayline">At home.</div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Quick reference</h2>
+    <div class="grid2">
+      <div class="refcard">
+        <h4>Sights / trails</h4>
+        <ul>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Sunrise+Point+Bryce+Canyon+National+Park" target="_blank">Sunrise Point / Navajo Loop</a> (Bryce)</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Horseshoe+Bend+Page+AZ" target="_blank">Horseshoe Bend</a> (Page)</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Mather+Point+Grand+Canyon" target="_blank">Mather Point / Rim Trail / Desert View</a> (Grand Canyon)</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>Accommodation (Hilton family)</h4>
+        <ul>
+          <li>At home — 10/1</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hampton+Inn+Suites+Springdale+Zion+National+Park" target="_blank">Hampton Inn Springdale/Zion or Cedar City</a> — 10/2<br>or camping-vibe: <a class="loc" href="https://airbnb.com/rooms/19641019" target="_blank">Bryce Canyon Deluxe Private Yurt</a></li>
+          <li><a class="loc" href="https://maps.app.goo.gl/CpAHDEC3i7XYQzLQ9?g_st=il" target="_blank">Arizona Biltmore, LXR Hotels & Resorts</a> — 10/3, 10/4</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hampton+Inn+Williams+AZ" target="_blank">Hampton Inn Williams</a> or <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Hilton+Garden+Inn+Flagstaff+AZ" target="_blank">Hilton Garden Inn Flagstaff</a> — 10/4 night (Grand Canyon gateway)</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>Reserve ahead</h4>
+        <ul>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Steak+44+Phoenix+AZ" target="_blank">Steak 44</a> (popular steakhouse)</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=El+Tovar+Hotel+Grand+Canyon" target="_blank">El Tovar Dining Room</a> (historic restaurant, book early)</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>Play tennis</h4>
+        <ul>
+          <li><a class="loc" href="https://www.arizonabiltmore.com/wellness/tennis-pickleball/" target="_blank">Arizona Biltmore, 7 courts</a> — right at the hotel, guests can book directly (court fee applies)</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Granada+Park+Phoenix+AZ" target="_blank">Granada Park</a> — 4 free public courts, ~1.7 mi from the Biltmore</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Madison+Park+Phoenix+AZ" target="_blank">Madison Park</a> — free public courts, ~4 mi from the Biltmore</li>
+          <li><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Camelback+Village+Racquet+%26+Health+Club+Phoenix+AZ" target="_blank">Camelback Village Racquet & Health Club</a> — private club, 7 courts, guest fee required</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>National park passes</h4>
+        <ul>
+          <li>Bryce Canyon <span class="pricepill">$35/vehicle, 7-day</span></li>
+          <li>Grand Canyon <span class="pricepill">$35/vehicle, 7-day</span></li>
+          <li>Both parks <span class="pricepill">$70</span>, or America the Beautiful annual pass <span class="pricepill">$80</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">To-do</h2>
+    <div class="todocard">
+      <ul>
+        <li><span class="box"></span><div><b>Book 10/2 stay</b> — Hampton Inn Springdale/Zion or Cedar City <span class="pricepill">~$180–260/night</span>, or a camping-vibe option near Bryce <span class="pricepill">~$75–200/night</span> (<a class="loc" href="https://airbnb.com/rooms/19641019" target="_blank">Deluxe Private Yurt</a> / <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Bryce+View+Lodge+Bryce+Canyon+UT" target="_blank">Bryce View Lodge</a> / <a class="loc" href="https://www.google.com/maps/search/?api=1&query=Best+Western+Plus+Bryce+Canyon+Grand+Hotel" target="_blank">Best Western Plus Bryce Canyon Grand Hotel</a> — availability and pricing change, double-check before you go)</div></li>
+        <li><span class="box"></span><div><b>Book 10/3–10/4 stay (2 nights)</b> — Arizona Biltmore, LXR Hotels & Resorts <span class="pricepill">~$250–400+/night, 5-star resort</span> (historic 1929 luxury resort, 39 acres, multiple pools)</div></li>
+        <li><span class="box"></span><div><b>Book 10/4 night stay</b> — Hampton Inn Williams or Hilton Garden Inn Flagstaff <span class="pricepill">~$150–220/night</span></div></li>
+        <li><span class="box"></span><div><b>Reserve Steak 44</b> (10/3 dinner, popular spot — book ahead)</div></li>
+        <li><span class="box"></span><div><b>Reserve El Tovar Dining Room</b> (10/5 lunch, historic restaurant — book well ahead)</div></li>
+        <li><span class="box"></span><div><b>National park passes</b> — $35/vehicle each at Bryce and Grand Canyon, or buy the America the Beautiful annual pass ($80) which covers both plus other parks</div></li>
+        <li><span class="box"></span><div><b>Check international visitor surcharge</b> — starting 2026, some national parks add a $100/person surcharge for non-US-resident visitors — confirm on the official site before you go if it applies</div></li>
+      </ul>
+    </div>
+  </section>
+  <section>
+    <h2 class="section-title">Packing list</h2>
+    <div class="note">Bryce (~8,000 ft) and the Grand Canyon rim get cold at sunrise/night in October (30s–40s°F) but warm up fast in the sun (60s–70s°F) — pack layers.</div>
+    <div class="grid2" style="margin-top:16px;">
+      <div class="refcard">
+        <h4>Road trip essentials</h4>
+        <ul>
+          <li>Snacks (trail mix, granola bars, chips, fruit)</li>
+          <li>Water bottles / cooler</li>
+          <li>Phone car mount + charging cables</li>
+          <li>Portable power bank</li>
+          <li>Offline maps downloaded (spotty signal near Bryce/Grand Canyon)</li>
+          <li>Sunglasses</li>
+          <li>Travel pillow / blanket</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>Tennis (10/4, Arizona Biltmore)</h4>
+        <ul>
+          <li>Tennis rackets</li>
+          <li>Tennis balls</li>
+          <li>Tennis shoes</li>
+          <li>Hats / visors</li>
+          <li>Sunscreen</li>
+          <li>Change of clothes for after</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>Hiking (Bryce & Grand Canyon)</h4>
+        <ul>
+          <li>Hiking shoes/boots</li>
+          <li>Warm layer / fleece for sunrise viewpoints</li>
+          <li>Light jacket (packable)</li>
+          <li>Sun hat</li>
+          <li>Refillable water bottle</li>
+          <li>Small daypack</li>
+          <li>Sunscreen + lip balm</li>
+        </ul>
+      </div>
+      <div class="refcard">
+        <h4>Documents & extras</h4>
+        <ul>
+          <li>ID / passport</li>
+          <li>Hotel & restaurant confirmations</li>
+          <li>National park pass confirmation</li>
+          <li>Camera + extra batteries/SD card</li>
+          <li>Swimsuit (Arizona Biltmore pools)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+<footer>Made for Tiff and Max · Oct 2026</footer>
+</body>
+</html>
