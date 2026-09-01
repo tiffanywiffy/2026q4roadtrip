@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cross-State Road Trip — Oct 1-6, 2026</title>
 <style>
+  /* ============================================================
+     Design tokens
+     ============================================================ */
   :root{
     --clay: #b5502e;
     --clay-dark: #8a3a20;
@@ -15,6 +18,7 @@
     --sage: #5c7a5e;
     --card: #fffaf3;
     --line: #e2d2ba;
+    --glow: rgba(181,80,46,0.18);
   }
   *{box-sizing:border-box;}
   body{
@@ -25,6 +29,24 @@
     line-height:1.7;
   }
   .wrap{max-width:920px;margin:0 auto;padding:0 24px 80px;}
+
+  /* ============================================================
+     Top banner
+     ============================================================ */
+  .topline{
+    background:var(--ink);
+    color:var(--sand-2);
+    text-align:center;
+    padding:11px 20px;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size:12.5px;
+    letter-spacing:.3px;
+  }
+  .topline p{margin:0;font-style:italic;opacity:.92;}
+
+  /* ============================================================
+     Hero
+     ============================================================ */
   header.hero{
     background:
       linear-gradient(180deg, rgba(181,80,46,0.75) 0%, rgba(138,58,32,0.88) 100%),
@@ -67,6 +89,9 @@
     font-size:13px;
     font-family: Helvetica, Arial, sans-serif;
   }
+  /* ============================================================
+     Section shell
+     ============================================================ */
   section{margin-top:56px;}
   h2.section-title{
     font-size:24px;
@@ -86,22 +111,67 @@
     border-radius:0 8px 8px 0;
     margin-bottom:8px;
   }
-  .route{
+
+  /* ============================================================
+     Route timeline — dotted horizontal / vertical progress track
+     ============================================================ */
+  .timeline{
     display:flex;
-    align-items:center;
-    justify-content:space-between;
-    flex-wrap:wrap;
-    gap:10px;
+    margin:16px 0 0;
+    padding:38px 18px 20px;
+    position:relative;
     background:var(--card);
     border:1px solid var(--line);
     border-radius:14px;
-    padding:22px;
     font-family: Helvetica, Arial, sans-serif;
   }
-  .route .stop{text-align:center;flex:1;min-width:90px;}
-  .route .stop .name{font-weight:600;font-size:12.5px;color:var(--ink);}
-  .route .stop .meta{font-size:11px;color:var(--ink-soft);margin-top:2px;}
-  .route .arrow{color:var(--clay);font-size:16px;flex:0;}
+  .timeline::before{
+    content:'';
+    position:absolute;
+    top:48px;
+    left:44px;
+    right:44px;
+    height:0;
+    border-top:2px dotted var(--clay);
+    opacity:.55;
+  }
+  .timeline-item{
+    flex:1;
+    position:relative;
+    text-align:center;
+    padding:0 4px;
+    z-index:1;
+  }
+  .timeline-dot{
+    width:11px;height:11px;
+    border-radius:50%;
+    background:var(--clay);
+    margin:0 auto 12px;
+    box-shadow:0 0 0 5px var(--sand-2), 0 0 10px var(--glow);
+  }
+  .timeline-item .t-name{font-weight:700;font-size:12.5px;color:var(--ink);}
+  .timeline-item .t-date{font-size:11px;color:var(--ink-soft);margin-top:3px;}
+  @media(max-width:640px){
+    .timeline{flex-direction:column;gap:26px;padding:22px;}
+    .timeline::before{
+      top:22px;bottom:22px;left:26px;right:auto;
+      width:0;height:auto;
+      border-top:none;
+      border-left:2px dotted var(--clay);
+    }
+    .timeline-item{
+      display:flex;
+      align-items:center;
+      text-align:left;
+      gap:16px;
+      padding:0;
+    }
+    .timeline-dot{margin:0;flex:0 0 11px;}
+  }
+
+  /* ============================================================
+     Day cards
+     ============================================================ */
   .dayimg{
     width:100%;
     height:190px;
@@ -161,6 +231,9 @@
     border-top:1px dashed var(--line);
     font-size:14px;
   }
+  /* ============================================================
+     Reference cards (Quick reference + Packing list)
+     ============================================================ */
   .grid2{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -172,6 +245,12 @@
     border:1px solid var(--line);
     border-radius:14px;
     padding:22px 24px;
+    transition:transform .5s ease, box-shadow .5s ease, border-color .5s ease;
+  }
+  .refcard:hover{
+    transform:translateY(-4px);
+    border-color:var(--clay);
+    box-shadow:0 18px 30px -20px rgba(44,36,32,.35), 0 0 26px var(--glow);
   }
   .refcard h4{
     margin:0 0 12px;
@@ -192,29 +271,55 @@
     border-radius:8px;
     margin-left:4px;
   }
-  .todocard{
+
+  /* Packing list — minimalist checkbox rows inside each refcard */
+  .pack-list{list-style:none;margin:0;padding:0;}
+  .pack-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:9px;
+  }
+  .pack-list li:last-child{margin-bottom:0;}
+  .box{
+    width:15px;height:15px;
+    border:1.5px solid var(--clay);
+    border-radius:4px;
+    flex:0 0 15px;
+    margin-top:2px;
+  }
+
+  /* ============================================================
+     Checkbox cards — To-do, two-column minimalist grid
+     ============================================================ */
+  .check-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+  }
+  @media(max-width:640px){.check-grid{grid-template-columns:1fr;}}
+  .check-card{
     background:var(--card);
     border:1px solid var(--line);
     border-radius:14px;
-    padding:22px 24px;
-  }
-  .todocard ul{list-style:none;margin:0;padding:0;}
-  .todocard li{
+    padding:18px 20px;
     display:flex;
-    gap:10px;
+    gap:12px;
     align-items:flex-start;
-    padding:10px 0;
-    border-bottom:1px solid var(--line);
-    font-size:15px;
+    font-size:14.5px;
+    transition:transform .5s ease, box-shadow .5s ease, border-color .5s ease;
   }
-  .todocard li:last-child{border-bottom:none;}
-  .todocard .box{
-    width:16px;height:16px;
-    border:1.5px solid var(--clay);
-    border-radius:4px;
-    flex:0 0 16px;
-    margin-top:3px;
+  .check-card:hover{
+    transform:translateY(-4px);
+    border-color:var(--clay);
+    box-shadow:0 18px 30px -20px rgba(44,36,32,.35), 0 0 26px var(--glow);
   }
+  .check-card .box{margin-top:3px;}
+  .check-card .content b{color:var(--ink);}
+
+  /* ============================================================
+     Footer
+     ============================================================ */
   footer{
     margin-top:64px;
     text-align:center;
@@ -225,6 +330,7 @@
 </style>
 </head>
 <body>
+<div class="topline"><p>Welcome to the short and intense road trip you're about to embark on.</p></div>
 <header class="hero">
   <div class="eyebrow">Cross-state road trip</div>
   <h1>Bryce Canyon · Page · Phoenix · Grand Canyon</h1>
@@ -239,18 +345,13 @@
   <section>
     <h2 class="section-title">Route overview</h2>
     <div class="note">On 10/4 night, drive ahead to a Grand Canyon gateway town (Williams/Flagstaff) so 10/5 morning is a short hop straight into the South Rim. 10/6 is a rest day back home.</div>
-    <div class="route" style="margin-top:16px;">
-      <div class="stop"><div class="name">Airport pickup</div><div class="meta">10/1</div></div>
-      <div class="arrow">→</div>
-      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Bryce+Canyon+National+Park+UT" target="_blank">Bryce Canyon</a></div><div class="meta">10/2-10/3</div></div>
-      <div class="arrow">→</div>
-      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Page+AZ" target="_blank">Page</a></div><div class="meta">10/3 en route</div></div>
-      <div class="arrow">→</div>
-      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Phoenix+AZ" target="_blank">Phoenix</a></div><div class="meta">10/3-10/4</div></div>
-      <div class="arrow">→</div>
-      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Williams+AZ" target="_blank">Williams/Flagstaff</a></div><div class="meta">10/4 night</div></div>
-      <div class="arrow">→</div>
-      <div class="stop"><div class="name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim+AZ" target="_blank">Grand Canyon</a></div><div class="meta">10/5</div></div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="t-name">Airport pickup</div><div class="t-date">10/1</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="t-name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Bryce+Canyon+National+Park+UT" target="_blank">Bryce Canyon</a></div><div class="t-date">10/2–10/3</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="t-name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Page+AZ" target="_blank">Page</a></div><div class="t-date">10/3 en route</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="t-name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Phoenix+AZ" target="_blank">Phoenix</a></div><div class="t-date">10/3–10/4</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="t-name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Williams+AZ" target="_blank">Williams/Flagstaff</a></div><div class="t-date">10/4 night</div></div>
+      <div class="timeline-item"><div class="timeline-dot"></div><div class="t-name"><a class="loc" href="https://www.google.com/maps/search/?api=1&query=Grand+Canyon+South+Rim+AZ" target="_blank">Grand Canyon</a></div><div class="t-date">10/5</div></div>
     </div>
   </section>
   <section>
@@ -383,16 +484,14 @@
   </section>
   <section>
     <h2 class="section-title">To-do</h2>
-    <div class="todocard">
-      <ul>
-        <li><span class="box"></span><div><b>Book 10/2 stay</b> — Hampton Inn Springdale/Zion (Hilton) <span class="pricepill">~$180–260/night</span>, or: <a class="loc" href="https://www.airbnb.com/rooms/1688883287411939266?check_in=2026-10-02&check_out=2026-10-03&guests=1&adults=1&s=67&unique_share_id=487e6708-9bb3-4a9e-adf6-88a3b713cdc9" target="_blank">Entire Cabin in Panguitch</a> / <a class="loc" href="https://www.airbnb.com/rooms/1311681920808577864?check_in=2026-10-02&check_out=2026-10-03&guests=1&adults=1&s=67&unique_share_id=cdfdbb54-3a7b-4428-b35d-cbd2cdc283d2" target="_blank">Twilight 3: 2 King Beds</a> / <a class="loc" href="https://www.booking.com/Share-fUJHLPE" target="_blank">Wander Camp Bryce Canyon</a> — availability and pricing change, double-check before you go</div></li>
-        <li><span class="box"></span><div><b>Book 10/3–10/4 stay (2 nights)</b> — Arizona Biltmore, LXR Hotels & Resorts <span class="pricepill">~$250–400+/night, 5-star resort</span> (historic 1929 luxury resort, 39 acres, multiple pools)</div></li>
-        <li><span class="box"></span><div><b>Book 10/4 night stay</b> — Hampton Inn Williams or Hilton Garden Inn Flagstaff <span class="pricepill">~$150–220/night</span></div></li>
-        <li><span class="box"></span><div><b>Reserve El Tovar Dining Room</b> (10/5 lunch, historic restaurant — book well ahead)</div></li>
-        <li><span class="box"></span><div><b>National park passes</b> — $35/vehicle each at Bryce and Grand Canyon, or buy the America the Beautiful annual pass ($80) which covers both plus other parks</div></li>
-        <li><span class="box"></span><div><b>Check international visitor surcharge</b> — starting 2026, some national parks add a $100/person surcharge for non-US-resident visitors — confirm on the official site before you go if it applies</div></li>
-        <li><span class="box"></span><div><b>Decide + book Arcosanti tour</b> — experimental architecture site in Mayer, AZ, right on the I-17 corridor, so it works as a stop on 10/3 (Page → Phoenix), 10/4 (Phoenix → Williams/Flagstaff), or 10/5 (Grand Canyon → home) — still deciding which day. Day visitors need a guided tour to see the architecture (~1 hr), Thu–Sun only, book ahead via <a class="loc" href="https://www.arcosanti.org/tours/" target="_blank">arcosanti.org/tours</a> or (928) 632-7135.</div></li>
-      </ul>
+    <div class="check-grid">
+      <div class="check-card"><span class="box"></span><div class="content"><b>Book 10/2 stay</b> — Hampton Inn Springdale/Zion (Hilton) <span class="pricepill">~$180–260/night</span>, or: <a class="loc" href="https://www.airbnb.com/rooms/1688883287411939266?check_in=2026-10-02&check_out=2026-10-03&guests=1&adults=1&s=67&unique_share_id=487e6708-9bb3-4a9e-adf6-88a3b713cdc9" target="_blank">Entire Cabin in Panguitch</a> / <a class="loc" href="https://www.airbnb.com/rooms/1311681920808577864?check_in=2026-10-02&check_out=2026-10-03&guests=1&adults=1&s=67&unique_share_id=cdfdbb54-3a7b-4428-b35d-cbd2cdc283d2" target="_blank">Twilight 3: 2 King Beds</a> / <a class="loc" href="https://www.booking.com/Share-fUJHLPE" target="_blank">Wander Camp Bryce Canyon</a> — availability and pricing change, double-check before you go</div></div>
+      <div class="check-card"><span class="box"></span><div class="content"><b>Book 10/3–10/4 stay (2 nights)</b> — Arizona Biltmore, LXR Hotels & Resorts <span class="pricepill">~$250–400+/night, 5-star resort</span> (historic 1929 luxury resort, 39 acres, multiple pools)</div></div>
+      <div class="check-card"><span class="box"></span><div class="content"><b>Book 10/4 night stay</b> — Hampton Inn Williams or Hilton Garden Inn Flagstaff <span class="pricepill">~$150–220/night</span></div></div>
+      <div class="check-card"><span class="box"></span><div class="content"><b>Reserve El Tovar Dining Room</b> (10/5 lunch, historic restaurant — book well ahead)</div></div>
+      <div class="check-card"><span class="box"></span><div class="content"><b>National park passes</b> — $35/vehicle each at Bryce and Grand Canyon, or buy the America the Beautiful annual pass ($80) which covers both plus other parks</div></div>
+      <div class="check-card"><span class="box"></span><div class="content"><b>Check international visitor surcharge</b> — starting 2026, some national parks add a $100/person surcharge for non-US-resident visitors — confirm on the official site before you go if it applies</div></div>
+      <div class="check-card"><span class="box"></span><div class="content"><b>Decide + book Arcosanti tour</b> — experimental architecture site in Mayer, AZ, right on the I-17 corridor, so it works as a stop on 10/3 (Page → Phoenix), 10/4 (Phoenix → Williams/Flagstaff), or 10/5 (Grand Canyon → home) — still deciding which day. Day visitors need a guided tour to see the architecture (~1 hr), Thu–Sun only, book ahead via <a class="loc" href="https://www.arcosanti.org/tours/" target="_blank">arcosanti.org/tours</a> or (928) 632-7135.</div></div>
     </div>
   </section>
   <section>
@@ -401,47 +500,47 @@
     <div class="grid2" style="margin-top:16px;">
       <div class="refcard">
         <h4>Road trip essentials</h4>
-        <ul>
-          <li>Snacks (trail mix, granola bars, chips, fruit)</li>
-          <li>Water bottles / cooler</li>
-          <li>Phone car mount + charging cables</li>
-          <li>Portable power bank</li>
-          <li>Offline maps downloaded (spotty signal near Bryce/Grand Canyon)</li>
-          <li>Sunglasses</li>
-          <li>Travel pillow / blanket</li>
+        <ul class="pack-list">
+          <li><span class="box"></span>Snacks (trail mix, granola bars, chips, fruit)</li>
+          <li><span class="box"></span>Water bottles / cooler</li>
+          <li><span class="box"></span>Phone car mount + charging cables</li>
+          <li><span class="box"></span>Portable power bank</li>
+          <li><span class="box"></span>Offline maps downloaded (spotty signal near Bryce/Grand Canyon)</li>
+          <li><span class="box"></span>Sunglasses</li>
+          <li><span class="box"></span>Travel pillow / blanket</li>
         </ul>
       </div>
       <div class="refcard">
         <h4>Tennis (10/4, with Max at Granada Park)</h4>
-        <ul>
-          <li>Tennis rackets</li>
-          <li>Tennis balls</li>
-          <li>Tennis shoes</li>
-          <li>Hats / visors</li>
-          <li>Sunscreen</li>
-          <li>Change of clothes for after</li>
+        <ul class="pack-list">
+          <li><span class="box"></span>Tennis rackets</li>
+          <li><span class="box"></span>Tennis balls</li>
+          <li><span class="box"></span>Tennis shoes</li>
+          <li><span class="box"></span>Hats / visors</li>
+          <li><span class="box"></span>Sunscreen</li>
+          <li><span class="box"></span>Change of clothes for after</li>
         </ul>
       </div>
       <div class="refcard">
         <h4>Hiking (Bryce & Grand Canyon)</h4>
-        <ul>
-          <li>Hiking shoes/boots</li>
-          <li>Warm layer / fleece for sunrise viewpoints</li>
-          <li>Light jacket (packable)</li>
-          <li>Sun hat</li>
-          <li>Refillable water bottle</li>
-          <li>Small daypack</li>
-          <li>Sunscreen + lip balm</li>
+        <ul class="pack-list">
+          <li><span class="box"></span>Hiking shoes/boots</li>
+          <li><span class="box"></span>Warm layer / fleece for sunrise viewpoints</li>
+          <li><span class="box"></span>Light jacket (packable)</li>
+          <li><span class="box"></span>Sun hat</li>
+          <li><span class="box"></span>Refillable water bottle</li>
+          <li><span class="box"></span>Small daypack</li>
+          <li><span class="box"></span>Sunscreen + lip balm</li>
         </ul>
       </div>
       <div class="refcard">
         <h4>Documents & extras</h4>
-        <ul>
-          <li>ID / passport</li>
-          <li>Hotel & restaurant confirmations</li>
-          <li>National park pass confirmation</li>
-          <li>Camera + extra batteries/SD card</li>
-          <li>Swimsuit (Arizona Biltmore pools)</li>
+        <ul class="pack-list">
+          <li><span class="box"></span>ID / passport</li>
+          <li><span class="box"></span>Hotel & restaurant confirmations</li>
+          <li><span class="box"></span>National park pass confirmation</li>
+          <li><span class="box"></span>Camera + extra batteries/SD card</li>
+          <li><span class="box"></span>Swimsuit (Arizona Biltmore pools)</li>
         </ul>
       </div>
     </div>
